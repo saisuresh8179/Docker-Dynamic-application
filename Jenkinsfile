@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                git 'https://github.com/saisuresh8179/jenkins_pipeline.git'
+                git 'https://github.com/saisuresh8179/Dynamic-application.git'
             }        
         }
         stage('run image') {
