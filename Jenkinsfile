@@ -27,7 +27,7 @@ pipeline {
         stage ('run container') {
             steps {
                 sh '''
-                    docker run --name webapps_java_container -d -p 8001:8000 webapp_java:latest
+                    docker run --name webapps_java_container -d -p 8001:8080 webapp_java:latest
                 '''
             }
         }
