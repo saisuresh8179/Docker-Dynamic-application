@@ -97,6 +97,7 @@
         </dependency>
     </dependencies>
     <build>
+       <finalName>login-page</finalName>  
         <plugins>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
