@@ -27,6 +27,7 @@ pipeline {
         stage ('run container') {
             steps {
                 sh '''
+                    docker stop webapps_java_container && docker rm webapps_java_container
                     docker run --name webapps_java_container -d -p 8001:8080 webapp_java:latest
                 '''
             }
