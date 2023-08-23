@@ -1,12 +1,12 @@
 pipeline {
     agent any
     stages {
-        stage('checkout') {
+        stage ('checkout') {
             steps {
                 git 'https://github.com/saisuresh8179/Dynamic-application.git'
             }        
         }
-        stage('run image') {
+        stage ('run image') {
             steps {
                 sh ''' docker build -t webapp_java . '''
             }
