@@ -5,7 +5,7 @@
     <artifactId>raviLogin</artifactId>
     <packaging>war</packaging>
     <version>2.0</version>
-    <name>Account RaviWebapp</name>
+    <name>AccountRaviWebapp</name>
     <url>http://maven.apache.org</url>
     <properties>
         <spring.version>4.2.0.RELEASE</spring.version>
@@ -97,7 +97,7 @@
         </dependency>
     </dependencies>
     <build>
-       <finalName>login-page</finalName>  
+       <finalName>AccountRaviWebapp</finalName>  
         <plugins>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
