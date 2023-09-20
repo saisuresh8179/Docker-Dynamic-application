@@ -1,9 +1,9 @@
 FROM ubuntu
-RUN sudo apt update
-RUN sudo apt install unzip -y
-RUN sudo apt install git -y && \
-    sudo apt install default-jdk -y && \
-    sudo apt install maven -y
+RUN apt update
+RUN apt install unzip -y
+RUN apt install git -y && \
+    apt install default-jdk -y && \
+    apt install maven -y
 WORKDIR  /opt/tomcat/
 RUN ADD https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.13/bin/apache-tomcat-10.1.13.zip /opt/tomcat/
 RUN unzip apache-tomcat-10.1.13 /opt/tomcat/tomcat10
