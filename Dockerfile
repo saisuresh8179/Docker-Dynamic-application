@@ -1,4 +1,4 @@
-FROM Ubuntu
+FROM ubuntu
 RUN sudo apt update
 RUN sudo apt install unzip -y
 RUN sudo apt install git -y && \
