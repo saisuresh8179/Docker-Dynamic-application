@@ -12,6 +12,6 @@ WORKDIR /home/ubuntu/java-app/
 RUN git clone https://github.com/saisuresh8179/Dynamic-application.git
 WORKDIR /home/ubuntu/java-app/Dynamic-application/
 RUN mvn clean package
-COPY /home/ubuntu/java-app/Dynamic-application/target/*.war /opt/tomcat/tomcat10/webapps/
+COPY /home/ubuntu/java-app/Dynamic-application/target/*.jar /opt/tomcat/tomcat10/webapps/
 EXPOSE 8080
-CMD [ "/opt/tomcat/tomcat10/bin/catalina.sh","run" ]
+ENTRYPOINT ["java","-jar","/opt/tomcat/tomcat10/webapps/*.jar"]
