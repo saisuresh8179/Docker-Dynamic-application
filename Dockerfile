@@ -8,8 +8,8 @@ RUN git clone https://github.com/saisuresh8179/Dynamic-application.git
 WORKDIR /home/ubuntu/java-app/Dynamic-application/
 RUN mvn clean package
 
-FROM openjdk:8-jre-alpine3.9 as java
+FROM tomcat as tomcat
 WORKDIR /app
-COPY /home/ubuntu/java-app/Dynamic-application/target/*.jar /app/
+COPY --from=build /home/ubuntu/java-app/Dynamic-application/target/*.war /app/
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app/*.jar"]
+ENTRYPOINT ["java","-jar","/app/*.war"]
