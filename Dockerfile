@@ -10,6 +10,6 @@ RUN mvn clean package
 
 FROM tomcat as tomcat
 WORKDIR /app
-COPY --from=build /home/ubuntu/java-app/Dynamic-application/target/*.war /app/
+COPY --from=build /home/ubuntu/java-app/Dynamic-application/target/*.war /usr/local/tomcat/webapps/
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app/*.war"]
+CMD ["catalina.sh","run"]
