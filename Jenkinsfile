@@ -9,7 +9,6 @@ pipeline {
     stage ('build docker image') {
         steps {
           sh '''
-          docker stop 
           docker build -t testing . '''
         }
     }
