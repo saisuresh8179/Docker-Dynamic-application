@@ -9,6 +9,7 @@ pipeline {
     stage ('build docker image') {
         steps {
           sh '''
+          docker stop 
           docker build -t testing . '''
         }
     }
@@ -33,7 +34,6 @@ pipeline {
     }
     stage ('store in nexus') {
       steps {
-        script {
           nexusArtifactUploader artifacts: [
             [
               artifactId: '01-maven-web-app',
@@ -49,8 +49,7 @@ pipeline {
           protocol: 'http', 
           repository: 'sample_app', 
           version: '3.0'
-        }
-      }
+     }
     }     
   }
 }
