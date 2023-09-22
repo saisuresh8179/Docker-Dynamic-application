@@ -16,7 +16,7 @@ pipeline {
           sh ''' docker run --name test_con -d -p 8085:8080 testing '''
         }
     }
-    stage ('add docker hub repo tag to image')
+    stage ('add docker hub repo tag to image') {
         steps {
           sh ''' docker tag testing saisuresh1/testing:v1 '''
         }
