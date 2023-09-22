@@ -9,8 +9,6 @@ pipeline {
     stage ('build docker image') {
         steps {
           sh '''
-          docker stop test_con && docker rm test_con
-          docker image rm testing saisuresh1/testing:v1
           docker build -t testing . '''
         }
     }
