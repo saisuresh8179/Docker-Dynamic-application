@@ -8,7 +8,10 @@ pipeline {
     }
     stage ('build docker image') {
         steps {
-          sh ''' docker build -t testing . '''
+          sh '''
+          docker stop test_con && docker rm test_con
+          docker image testing saisuresh1/testing:v1
+          docker build -t testing . '''
         }
     }
     stage ('run the container') {
@@ -18,14 +21,14 @@ pipeline {
     }
     stage ('add docker hub repo tag to image') {
         steps {
-          sh ''' docker tag testing saisuresh1/testing:v1 '''
+          sh ''' docker tag testing saisuresh1/testing:v2 '''
         }
     }
     stage ('push to docker hub') {
         steps {
             script {
                 withDockerRegistry(credentialsId: 'docker-cred') {
-                    sh ''' docker push saisuresh1/testing:v1 '''
+                    sh ''' docker push saisuresh1/testing:v2 '''
                 }
             }
         }
