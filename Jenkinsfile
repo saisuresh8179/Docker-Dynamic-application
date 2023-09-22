@@ -30,5 +30,26 @@ pipeline {
             }
         }
     }
+    stage ('store in nexus') {
+      steps {
+        script {
+          nexusArtifactUploader artifacts: [
+            [
+              artifactId: '01-maven-web-app',
+              classifier: '', 
+              file: 'target', 
+              type: 'war'
+            ]
+          ],
+          credentialsId: 'nexus-cred', 
+          groupId: 'in.ashokit', 
+          nexusUrl: '172.31.13.106', 
+          nexusVersion: 'nexus3', 
+          protocol: 'http', 
+          repository: 'sample_app', 
+          version: '3.0'
+        }
+      }
+    }     
   }
 }
