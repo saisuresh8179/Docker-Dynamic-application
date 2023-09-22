@@ -38,13 +38,13 @@ pipeline {
             [
               artifactId: '01-maven-web-app',
               classifier: '', 
-              file: 'target', 
+              file: 'target/*.war', 
               type: 'war'
             ]
           ],
           credentialsId: 'nexus-cred', 
           groupId: 'in.ashokit', 
-          nexusUrl: '172.31.13.106', 
+          nexusUrl: '172.31.13.106:8081', 
           nexusVersion: 'nexus3', 
           protocol: 'http', 
           repository: 'sample_app', 
