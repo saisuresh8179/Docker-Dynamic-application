@@ -31,6 +31,11 @@ pipeline {
             }
         }
     }
+    stage ('create artifate for application') {
+      steps {
+        sh ''' mvn clean install '''
+      }
+    }
     stage ('store in nexus') {
       steps {
           nexusArtifactUploader artifacts: [
