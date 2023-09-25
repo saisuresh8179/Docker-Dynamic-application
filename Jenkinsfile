@@ -9,6 +9,8 @@ pipeline {
     stage ('build docker image') {
         steps {
           sh '''
+          docker stop testing && docker rm testing
+          docker image rm testing
           docker build -t testing . '''
         }
     }
@@ -19,14 +21,14 @@ pipeline {
     }
     stage ('add docker hub repo tag to image') {
         steps {
-          sh ''' docker tag testing saisuresh1/testing:v2 '''
+          sh ''' docker tag testing saisuresh1/testing:v3 '''
         }
     }
     stage ('push to docker hub') {
         steps {
             script {
                 withDockerRegistry(credentialsId: 'docker-cred') {
-                    sh ''' docker push saisuresh1/testing:v2 '''
+                    sh ''' docker push saisuresh1/testing:v3 '''
                 }
             }
         }
@@ -52,7 +54,7 @@ pipeline {
           nexusVersion: 'nexus3', 
           protocol: 'http', 
           repository: 'sample_app', 
-          version: '4.0'
+          version: '5.0'
      }
     }     
   }
