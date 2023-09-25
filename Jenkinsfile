@@ -9,9 +9,10 @@ pipeline {
     stage ('build docker image') {
         steps {
           sh '''
-          docker stop testing && docker rm testing
+          docker stop testing 
+          docker rm testing
           docker image rm testing
-          docker build -t testing . '''
+          docker build -t testing .'''
         }
     }
     stage ('run the container') {
