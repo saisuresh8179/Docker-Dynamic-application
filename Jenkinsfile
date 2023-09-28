@@ -50,7 +50,7 @@ pipeline {
           nexusUrl: '172.27.204.61:8081', 
           nexusVersion: 'nexus3', 
           protocol: 'http', 
-          repository: 'sample_app', 
+          repository: 'war_repo', 
           version: '1.0'
      }
     }     
