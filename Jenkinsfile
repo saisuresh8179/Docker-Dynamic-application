@@ -3,24 +3,25 @@ pipeline {
   stages {
     stage ('build docker image') {
         steps {
+        
           sh '''  docker build -t java_app . '''
         }
     }
     stage ('run the docker container') {
         steps {
-          sh ''' docker run --name java_con -d -p 8089:8080 java_app '''
+          sh ''' docker run --name java_con1 -d -p 8085:8080 java_app '''
         }
     }
     stage ('add docker hub repo tag to image') {
         steps {
-          sh ''' docker tag java_app saisuresh1/java_app:v1 '''
+          sh ''' docker tag java_app saisuresh1/java_app:v2 '''
         }
     }
     stage ('push to docker hub') {
         steps {
             script {
                 withDockerRegistry(credentialsId: 'docker-cred') {
-                    sh ''' docker push saisuresh1/java_app:v1'''
+                    sh ''' docker push saisuresh1/java_app:v2'''
                 }
             }
         }
