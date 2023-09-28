@@ -11,7 +11,7 @@ pipeline {
           sh '''  docker build -t java_app . '''
         }
     }
-    stage ('run the container') {
+    stage ('run the docker container') {
         steps {
           sh ''' docker run --name java_con -d -p 8085:8080 java_app '''
         }
