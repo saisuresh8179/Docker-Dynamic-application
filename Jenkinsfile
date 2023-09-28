@@ -13,7 +13,7 @@ pipeline {
           ],
           credentialsId: 'nexus-cred', 
           groupId: 'in.ashokit', 
-          nexusUrl: '172.27.204.61:8081', 
+          nexusUrl: '172.31.42.187:8081', 
           nexusVersion: 'nexus3', 
           protocol: 'http', 
           repository: 'war_repo', 
