@@ -13,7 +13,7 @@ pipeline {
     }
     stage ('run the docker container') {
         steps {
-          sh ''' docker run --name java_con -d -p 8082:8080 java_app '''
+          sh ''' docker run --name java_con -d -p 8089:8080 java_app '''
         }
     }
     stage ('add docker hub repo tag to image') {
