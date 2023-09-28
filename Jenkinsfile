@@ -1,12 +1,6 @@
 pipeline {
   agent any
   stages {
-    stage ('store in nexus') {
-      stage ('checkout') {
-        steps {
-          git branch: 'main', url: 'https://github.com/saisuresh8179/Dynamic-application.git'
-        }
-      }
     stage ('build docker image') {
         steps {
           sh '''  docker build -t java_app . '''
@@ -36,6 +30,7 @@ pipeline {
         sh ''' mvn clean install '''
       }
     }
+    stage ('store in nexus') {
       steps {
           nexusArtifactUploader artifacts: [
             [
