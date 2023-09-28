@@ -8,28 +8,24 @@ pipeline {
     }
     stage ('build docker image') {
         steps {
-          sh '''
-          docker stop test_con
-          docker rm test_con
-          docker image rm testing
-          docker build -t testing .'''
+          sh '''  docker build -t java_app . '''
         }
     }
     stage ('run the container') {
         steps {
-          sh ''' docker run --name test_con -d -p 8085:8080 testing '''
+          sh ''' docker run --name java_con -d -p 8085:8080 java_app '''
         }
     }
     stage ('add docker hub repo tag to image') {
         steps {
-          sh ''' docker tag testing saisuresh1/testing:v3 '''
+          sh ''' docker tag java_app saisuresh1/java_app:v1 '''
         }
     }
     stage ('push to docker hub') {
         steps {
             script {
                 withDockerRegistry(credentialsId: 'docker-cred') {
-                    sh ''' docker push saisuresh1/testing:v3 '''
+                    sh ''' docker push saisuresh1/java_app:v1'''
                 }
             }
         }
@@ -51,11 +47,11 @@ pipeline {
           ],
           credentialsId: 'nexus-cred', 
           groupId: 'in.ashokit', 
-          nexusUrl: '172.31.13.106:8081', 
+          nexusUrl: '172.27.204.61:8081', 
           nexusVersion: 'nexus3', 
           protocol: 'http', 
           repository: 'sample_app', 
-          version: '5.0'
+          version: '1.0'
      }
     }     
   }
