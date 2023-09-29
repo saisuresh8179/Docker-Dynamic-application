@@ -3,7 +3,6 @@ pipeline {
   stages { 
      stage ('build docker image') {
         steps {
-        
           sh '''  docker build -t java_app . '''
         }
     }
