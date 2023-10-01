@@ -30,7 +30,7 @@ pipeline {
         sh ''' mvn clean install '''
       }
     }
-    stage ('store in nexus') {
+    stage ('store in nexus repo') {
       steps {
           nexusArtifactUploader artifacts: [
             [
