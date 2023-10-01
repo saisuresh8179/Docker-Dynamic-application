@@ -45,11 +45,14 @@ pipeline {
           nexusUrl: '172.31.42.187:8081', 
           nexusVersion: 'nexus3', 
           protocol: 'http', 
-          repository: 'war_repo', 
-          version: '2.0'
+          repository: 'war-repo-1', 
+          version: '1.0'
      }
     }
     stage ('copy artifcate to ansible sever'){ 
-      
+      steps {
+        sshPublisher(publishers: [sshPublisherDesc(configName: 'ansible_connection', transfers: [sshTransfer(cleanRemote: false, execCommand: 'ansible-playbook --ask-vault-password /home/ansible/Docker/docker.yml', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, remoteDirectory: '//home//ansible//Docker', remoteDirectorySDF: false, removePrefix: 'target', sourceFiles: 'target/01-maven-web-app.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+      }
+    }
   }
 }
