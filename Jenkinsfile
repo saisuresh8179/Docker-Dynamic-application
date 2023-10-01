@@ -46,7 +46,7 @@ pipeline {
           nexusVersion: 'nexus3', 
           protocol: 'http', 
           repository: 'war-repo-1', 
-          version: '1.5'
+          version: '2.0'
      }
     }
     stage ('copy artifcate to ansible sever'){ 
