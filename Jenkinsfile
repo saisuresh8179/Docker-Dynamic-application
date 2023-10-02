@@ -25,11 +25,11 @@ pipeline {
     //         }
     //     }
     // }
-    stage ('create artifate for application') {
-      steps {
-        sh ''' mvn clean install '''
-      }
-    }
+    // stage ('create artifate for application') {
+    //   steps {
+    //     sh ''' mvn clean install '''
+    //   }
+    // }
     stage ('store in nexus repo') {
       steps {
           nexusArtifactUploader artifacts: [
