@@ -1,6 +1,6 @@
 pipeline {
-  agent any
-  stages { 
+    agent any
+    stages {
     // stage ('build docker image') {
     //     steps {
     //       sh '''  docker build -t java_app . '''
@@ -30,29 +30,70 @@ pipeline {
     //     sh ''' mvn clean install '''
     //   }
     // }
-    stage ('store in nexus repo') {
-      steps {
-          nexusArtifactUploader artifacts: [
-            [
-              artifactId: '01-maven-web-app',
-              classifier: '', 
-              file: 'target/01-maven-web-app.war', 
-              type: 'war'
-            ]
-          ],
-          credentialsId: 'nexus-cred', 
-          groupId: 'in.ashokit', 
-          nexusUrl: '172.31.42.187:8081', 
-          nexusVersion: 'nexus3', 
-          protocol: 'http', 
-          repository: 'war-repo-1', 
-          version: '2.2'
-     }
-    }
-    stage ('copy artifcate to ansible sever'){ 
-      steps {
-        sshPublisher(publishers: [sshPublisherDesc(configName: 'ansible_connection', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'ansible-playbook /home/ansible/Docker/docker.yml', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '//home//ansible//Docker', remoteDirectorySDF: false, removePrefix: 'target', sourceFiles: 'target/01-maven-web-app.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+        stage ('connect to github connection')
+        {
+            steps {
+                git branch: 'main', url: 'https://github.com/saisuresh8179/Dynamic-application.git'
+            } 
+        }
+        stage ('maven validate')
+        {
+            steps {
+               sh ''' mvn validate '''
+            }
+        }
+        stage ('maven compile')
+        {
+            steps {
+                sh ''' mvn compile  '''
+            }
+            
+        }
+        stage ('maven package')
+        {
+            steps {
+                sh ''' mvn clean install '''
+            }
+        }
+        stage ('store to nexus repo')
+        {
+            steps {
+                
+                nexusArtifactUploader artifacts: 
+                [
+                    [
+                        artifactId: '01-maven-web-app', 
+                        classifier: '', 
+                        file: 'target/01-maven-web-app.war', 
+                        type: 'war'
+                    ]
+                ], 
+                credentialsId: 'nexus_cred', 
+                groupId: 'saisuresh', 
+                nexusUrl: '172.31.29.220:8081', 
+                nexusVersion: 'nexus3', 
+                protocol: 'http', 
+                repository: 'java_war_repo', 
+                version: '1.0'            
+            }
+        }
+        stage ('copy the Dockerfile to ansible sever')
+        {
+            steps {
+              sshPublisher(publishers: [sshPublisherDesc(configName: 'ansible_server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '//home//ansible//Docker', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'Dockerfile')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+           }
+        }
+        stage ('copy the artifate file to ansible server')
+        {
+            steps {
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'ansible_server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '//home//ansible//Docker', remoteDirectorySDF: false, removePrefix: 'target', sourceFiles: 'target/01-maven-web-app.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+            }
+        }
+        stage ('copy the ansible-playbook for create docker image ans run container in ansible sever')
+        {
+            steps {
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'ansible_server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'ansible-playbook /home/ansible/Docker/docker_image.yml', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '//home//ansible//Docker', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'docker_image.yml')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+            }
         }
     }
-  }
 }
