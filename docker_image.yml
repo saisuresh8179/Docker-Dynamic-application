@@ -1,0 +1,34 @@
+---
+- name: Create a docker image, docker container and push to docker hub
+  hosts: all
+  remote_user: ansible
+  tasks:
+    # - name: include vault
+    #   ansible.builtin.include_vars:
+    #     file: ansible-vault_cred.yml
+    
+    # - name: print docker cred
+    #   debug:
+    #    var: docker_username
+
+    # - name: docker login
+    #   docker_login:
+    #     username: '{{ docker_username }}'
+    #     password: '{{ docker_passwd }}'
+
+    - name: create docker image and push to docker hub
+      docker_image:
+        build:
+         path: /home/ansible/Docker/
+        name: saisuresh1/devops_project
+        tag: v1
+        push: true
+        source: build
+
+    - name: run the container using docker run command
+      docker_container:
+        image: saisuresh1/devops_project:v1
+        name: docker_con1
+        state: started
+        ports:
+         - "8081:8080"
