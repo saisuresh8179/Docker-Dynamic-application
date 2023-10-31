@@ -22,7 +22,7 @@
          path: /home/ansible/Docker/
         name: saisuresh1/devops_project
         tag: v1
-        push: true
+        # push: true
         source: build
 
     - name: run the container using docker run command
