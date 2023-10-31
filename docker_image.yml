@@ -1,7 +1,7 @@
 ---
 - name: Create a docker image, docker container and push to docker hub
   hosts: all
-  remote_user: ansible
+  become: yes
   tasks:
     # - name: include vault
     #   ansible.builtin.include_vars:
@@ -15,16 +15,34 @@
     #   docker_login:
     #     username: '{{ docker_username }}'
     #     password: '{{ docker_passwd }}'
+    
     - name: change the docker.sock file permissions
       shell: sudo chmod 777 /var/run/docker.sock
-    - name: create docker image and push to docker hub
+
+    - name: create a directory Docker
+      file:
+        path: Docker/target
+        state: directory
+        
+    - name: copy the docker file to Docker diectory
+      copy:
+        src: /home/ansible/Docker/Dockerfile
+        dest: /home/ansible/Docker/
+        
+    - name: copy the war file to Docker/target directory
+      copy:
+        src: /home/ansible/Docker/target/01-maven-web-app.war
+        dest: /home/ansible/Docker/target/
+        :
+    - name: Build an image and push it to a private repo
+      become: yes
       docker_image:
-        build:
-         path: /home/ansible/Docker/Dockerfile
-        name: saisuresh1/devops_project
-        tag: v1
-        # push: true
-        source: build
+       build:
+        path: /home/ansible/Docker
+       name: saisuresh1/java_app
+       tag: v1
+       push: false
+       source: build
 
     - name: run the container using docker run command
       docker_container:
