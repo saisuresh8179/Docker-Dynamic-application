@@ -15,7 +15,8 @@
     #   docker_login:
     #     username: '{{ docker_username }}'
     #     password: '{{ docker_passwd }}'
-
+    - name: change the docker.sock file permissions
+      shell: sudo chmod 777 /var/run/docker.sock
     - name: create docker image and push to docker hub
       docker_image:
         build:
