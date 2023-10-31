@@ -19,7 +19,7 @@
     - name: create docker image and push to docker hub
       docker_image:
         build:
-         path: /home/ansible/Docker/
+         path: /home/ansible/Docker/Dockerfile
         name: saisuresh1/devops_project
         tag: v1
         # push: true
