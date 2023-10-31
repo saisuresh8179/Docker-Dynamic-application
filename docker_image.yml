@@ -23,17 +23,23 @@
       file:
         path: Docker/target
         state: directory
+        owner: ansible
+        group: ansible
         
     - name: copy the docker file to Docker diectory
       copy:
         src: /home/ansible/Docker/Dockerfile
         dest: /home/ansible/Docker/
+        owner: ansible
+        group: ansible
         
     - name: copy the war file to Docker/target directory
       copy:
         src: /home/ansible/Docker/target/01-maven-web-app.war
         dest: /home/ansible/Docker/target/
-        :
+        owner: ansible
+        group: ansible
+
     - name: Build an image and push it to a private repo
       become: yes
       docker_image:
