@@ -11,6 +11,6 @@
 <h3 style="color:blue;" align=center>7.Docker</h3>
 
 <center><a style="color:blue;" href="https://en.wikipedia.org/wiki/DevOps"> what is devops?</a></center>
-<h2 style="color:blue;" align=center> Phone number: + 91 - 6305929427 </h2>
+<h3 style="color:blue;" align=center> Phone number: + 91 - 6305929427 </h3>
 </body>
 </html>
