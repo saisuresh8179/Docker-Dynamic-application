@@ -80,7 +80,7 @@ pipeline {
                 version: '1.0'            
             }
         }
-        stage ('copy the Dockerfile to ansible sever(centeral node)')
+        stage ('copy the Dockerfile to ansible sever')
         {
             steps {
               sshPublisher(publishers: [sshPublisherDesc(configName: 'ansible_server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '//home//ansible//Docker', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'Dockerfile')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
