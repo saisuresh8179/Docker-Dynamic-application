@@ -1,1 +1,1 @@
-# Static-application
+# Java Dynamic-application
