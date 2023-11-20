@@ -1,1 +1,1 @@
-# Dynamic-application
+# Static-application
