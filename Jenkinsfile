@@ -13,7 +13,7 @@ pipeline {
           sh ''' docker run --name java_con1 -d -p 8085:8080 java_app '''
         }
     }
-    stage ('add docker hub repo tag to image') 
+    stage ('add docker hub repo tag to imag   ') 
     {
         steps {
           sh ''' docker tag java_app saisuresh1/java_app:v2 '''
@@ -80,7 +80,7 @@ pipeline {
                 version: '1.0'            
             }
         }
-        stage ('copy the Dockerfile to ansible sever')
+        stage ('copy the Dockerfile to ansible sever(centeral node)')
         {
             steps {
               sshPublisher(publishers: [sshPublisherDesc(configName: 'ansible_server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '//home//ansible//Docker', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'Dockerfile')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
