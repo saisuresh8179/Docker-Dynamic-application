@@ -29,29 +29,8 @@ pipeline {
             }
         }
     }
-    // stage ('create artifate for application') {
-    //   steps {
-    //     sh ''' mvn clean install '''
-    //   }
-    // }
-    // stage ('connect to github connection')
-    // {
-    //     steps {
-    //         git branch: 'main', url: 'https://github.com/saisuresh8179/Dynamic-application.git'
-    //     } 
-    // }
-        stage ('maven validate')
-        {
-            steps {
-               sh ''' mvn validate '''
-            }
-        }
-        stage ('maven compile')
-        {
-            steps {
-                sh ''' mvn compile  '''
-            }
-        }
+        // Continues Integration
+    
         stage ('maven package')
         {
             steps {
@@ -80,6 +59,7 @@ pipeline {
                 version: '1.0'            
             }
         }
+        // Continues Deployment
         stage ('copy the Dockerfile to ansible sever')
         {
             steps {
