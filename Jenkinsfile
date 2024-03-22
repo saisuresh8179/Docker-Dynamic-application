@@ -1,6 +1,12 @@
 pipeline {
     agent any
     stages {
+    stage ('maven package')
+        {
+            steps {
+                sh ''' mvn clean install '''
+            }
+        }
     stage ('build docker image') 
     {
         steps {
@@ -31,12 +37,7 @@ pipeline {
     }
         // Continues Integration
     
-        stage ('maven package')
-        {
-            steps {
-                sh ''' mvn clean install '''
-            }
-        }
+
         stage ('store to nexus repo')
         {
             steps {
